@@ -1,0 +1,27 @@
+@media screen and (min-width: 1000px) and (min-height: 900px) {
+.agreement {
+    width: 100%;
+    height: fit-content;
+    position: absolute;
+    background: #0d1117;
+    margin: 0;
+    padding: 0;
+}
+
+.agreement .a-container {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.agreement .a-container .title {
+    color: white;
+    font-size: 3rem;
+}
+
+.agreement .a-container .text {
+    color: #868e8e;
+    font-size: 1.3rem;
+    line-height: 140%;
+    margin-bottom: 100px;
+}}
