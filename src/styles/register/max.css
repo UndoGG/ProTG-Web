@@ -1,4 +1,4 @@
-@media (min-width: 1040px) and (min-height: 840px) {
+@media (min-width: 1040px) {
 
 .register {
     width: 100%;
@@ -12,6 +12,9 @@
 .register .form-container {
     width: 100%;
     margin-bottom: 50px;
+    margin-left: initial;
+    margin-right: initial;
+    margin-top: initial;
 }
 
 .form-container .form {
@@ -127,6 +130,7 @@
 }
 
 .agreement-container .checkmark {
+    user-select: none;
     border-style: solid;
     min-width: 24px;
     height: 24px;
@@ -136,11 +140,17 @@
     border-width: 1px;
 }
 
-.agreement-container .checkmark. img {
+.low-margin {
+    margin-top: 15px !important;
+}
+
+.agreement-container .checkmark img {
     display: block;
 }
 
 .agreement-container .text {
+    margin-top: auto;
+    margin-bottom: auto;
     max-width: 70%;
     color: #868587;
     margin-left: 20px;

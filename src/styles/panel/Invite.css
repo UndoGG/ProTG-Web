@@ -1,0 +1,37 @@
+.pool-block .tasks-table {
+    margin-top: 30px;
+    margin-right: auto;
+    width: 100%;
+	margin-bottom: 20px;
+    display: table;
+    transition: opacity 0.5s;
+}
+
+
+.pool-block .tasks-table th {
+    max-width: 100%;
+    user-select: text;
+    text-align: left;
+	padding-bottom: 5px;
+	padding-top: 5px;
+    font-size: 0.9em;
+    color: #8f8f8f;
+    border-style: solid;
+    border-color: transparent;
+    border-bottom-color: #202937;
+    border-width: 1px;
+}
+
+.gray-tr td {
+    color: gray !important;
+}
+
+
+.pool-block .tasks-table td {
+    text-align: left;
+    font-size: 0.9em;
+    user-select: text;
+	padding-bottom: 5px;
+	padding-top: 5px;
+    color: white;
+}

@@ -1,12 +1,13 @@
 <!--suppress ALL -->
 <script>
-import '@/styles/home/mobile.css';
-import '@/styles/home/max.css';
+import '@/styles/agreement/max.css';
+import '@/styles/agreement/300x450.css';
 import '@/styles/global/header/max.css';
 import '@/styles/general.css';
 import Header from "@/components/global/header.vue";
 import Footer from "@/components/global/footer.vue";
 import {openLink} from "@/scripts/links.js";
+
 
 export default {
   data() {
@@ -18,6 +19,9 @@ export default {
   },
   computed: {},
   methods: {
+    redirect(link) {
+      openLink(link, true);
+    },
     unlist_answer(answer_component_id) {
       let answer_component = document.getElementById(answer_component_id);
       if (answer_component.style.display == 'block') {
@@ -27,140 +31,16 @@ export default {
         answer_component.style.display = 'block';
       }
     },
-    redirect(link) {
-      openLink(link, true);
-    }
   }
 };
 </script>
 
 <template>
-  <div class="home">
+  <div class="faq home">
     <Header></Header>
-    <div class="slide-container">
-      <div class="main-title-container">
-        <div class="title">
-          Самый удобный сервис для продвижения в Telegram!
-        </div>
-        <div class="subtitle">
-          На базе официального Telegram API
-        </div>
-      </div>
-    </div>
-
-    <div class="slide-container-no-bg">
-      <div class="main-title-container main-title-container-long">
-        <div class="title">
-          ProTG для рекламы в Telegram
-        </div>
-        <div class="subtitle">
-          Просто укажите конкурентов и перелейте аудиторию в свою
-          группу или канал. Мгновенный эффект от рекламы. Только живая
-          аудитория. Официальный API Telegram. Быстро и безопасно!
-        </div>
-      </div>
-
-      <div class="section-container">
-        <div class="section-image-container">
-          <img src="/assets/images/targeting.png" alt="targeting">
-        </div>
-        <div class="section-text-container">
-          <div class="title">
-            Соберите целевую аудиторию
-          </div>
-          <div class="text">
-            <div>Аудиторию можно собрать не только с открытых,
-              но и с закрытых Телеграм-групп</div>
-            <div>&nbsp</div>
-            <div>Есть удобная настройка фильтрации по последнему времени онлайна,которая поможет вам собирать
-              только живую и активную аудиторию, исключая ботов</div>
-            <div>&nbsp</div>
-            <div>Просто укажите группы прямых или косвенных конкурентов, и выгружайте их пользователей в удобном виде.
-              Также есть поиск конкурентов по ключевым фразам</div>
-          </div>
-        </div>
-      </div>
-      <div class="section-container">
-        <div class="section-text-container">
-          <div class="title">
-            Пригласите аудиторию в свои группы
-          </div>
-          <div class="text">
-            <div>Наполняйте свои группы и каналы живыми людьми в
-              кратчайшие сроки и с минимальными расходами</div>
-            <div>&nbsp</div>
-            <div>Инвайт только целевой аудитории в группы с релевантным
-              контентом - рецепт успеха большинства лидеров</div>
-            <div>&nbsp</div>
-            <div>Телеграм - это прежде всего мессенджер, и живое
-              комьюнити по интересной теме может стать
-              интеллектуальным активом вашего бренда
-            </div>
-          </div>
-        </div>
-        <div class="section-image-container">
-          <img src="/assets/images/targeting2.png" alt="targeting">
-        </div>
-      </div>
-
-      <div class="results-section-container">
-        <div class="single-title">Результаты</div>
-        <div class="results-upper-container">
-          <div class="results-block-container">
-            <div class="results-block">
-              <div class="text">
-                <strong>Ниша:</strong> выстраивание личного бренда
-                <div></div>
-                <strong>+1500</strong> подписчиков
-                <div></div>
-                <span @click="this.redirect('https://t.me/Lichnyy_brend1')" style="color: #8e8e8e; cursor: pointer">https://t.me/Lichnyy_brend1</span>
-                <div></div>
-                <strong>Результаты:</strong>
-                <div></div>
-                • Собрала живую и целевую аудиторию - более 1500 человек
-                <div></div>
-                • Получила 2 заявки на услугу личного бренда.
-                <div></div>
-                • Есть план как через 3 месяца сделать 10 000 подписчиков.
-              </div>
-              </div>
-            </div>
-          <div class="people-container">
-            <div class="item">
-              <img src="/assets/images/review/1.jpeg" alt="1">
-              <div class="name">Александра Сашурина</div>
-            </div>
-            <div class="item">
-              <img src="/assets/images/review/2.jpeg" alt="2">
-              <div class="name">Екатерина Михалевич</div>
-            </div>
-            <div class="item">
-              <img src="/assets/images/review/3.jpeg" alt="3">
-              <div class="name">Кирилл Медведев</div>
-            </div>
-            <div class="item">
-              <img src="/assets/images/review/4.jpeg" alt="4">
-              <div class="name">Алёна Захарова</div>
-            </div>
-            <div class="item">
-              <img src="/assets/images/review/5.jpeg" alt="5">
-              <div class="name">Елизавета Гутник</div>
-            </div>
-            <div class="item">
-              <img src="/assets/images/review/6.jpeg" alt="6">
-              <div class="name">Дмитрий Елисеев</div>
-            </div>
-            <div class="item">
-              <img src="/assets/images/review/7.jpeg" alt="7">
-              <div class="name">Евгения Барышникова</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="faq-container">
+    <div class="faq-container">
         <div class="faq-title">Часто задаваемые вопросы</div>
-        <div class="faq-list">
+        <div class="faq-list no-background">
           <div class="item" @click="unlist_answer('answer_1')">
             <div class="head-container">
               <div class="container">
@@ -312,23 +192,6 @@ export default {
           </div>
         </div>
       </div>
-    </div>
-<!--    <div class="section-container-no-margin section-container" style="padding-top: 150px; padding-bottom: 150px;">-->
-<!--      <div class="section-text-container">-->
-<!--        <div class="title">-->
-<!--          Удаленная работа с оплачиваемой стажировкой от ProTG-->
-<!--        </div>-->
-<!--        <div class="text">-->
-<!--          Работай 2 часа в день. Первый доход через 7-10 дней.-->
-<!--        </div>-->
-<!--        <div class="info-button" @click="redirect('https://ekovalenko.ru/run/?page=10_34&u=SG45N3BrSmhQc0NBRE5ab05yOC84Zz09')">Узнать подробнее</div>-->
-<!--      </div>-->
-
-<!--      <div class="section-image-container" style="background-image: none;">-->
-<!--        <img src="/assets/images/mxvg.png" alt="targeting" style="border-radius: 100%;">-->
-<!--      </div>-->
-<!--    </div>-->
-
     <Footer></Footer>
   </div>
 </template>

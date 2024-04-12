@@ -1,0 +1,13 @@
+.titles-container {
+    width: 95%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    line-height: 30px;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.gray-text {
+    font-weight: 400;
+}

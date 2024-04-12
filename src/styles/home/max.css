@@ -235,6 +235,10 @@
     background-repeat: no-repeat;
 }
 
+.faq-container .no-background {
+    background-image: none !important;
+}
+
 .home .faq-container .faq-list .item {
     margin-left: auto;
     margin-right: auto;

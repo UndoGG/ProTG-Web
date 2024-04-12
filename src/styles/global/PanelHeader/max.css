@@ -1,0 +1,139 @@
+@media screen and (min-width: 1040px) and (min-height: 900px) {
+.panel-header {
+    width: 100%;
+    margin: 0;
+    background: #0d1117;
+    min-height: 120px;
+
+    display: grid;
+    grid-template-columns: 22.5% 37% 40%;
+}
+
+.panel-header > div {
+    padding: 10px;
+}
+
+.panel-menu-container {
+    display: none;
+}
+
+.panel-header .logo-section {
+    display: flex;
+    margin-left: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.panel-header .logo-section img {
+    min-width: 50px;
+    max-width: 150px;
+    cursor: pointer;
+}
+
+.panel-header .info-section {
+    text-align: left;
+    display: flex;
+    gap: 35px;
+}
+
+.info-section .link:first-child {
+    margin-left: 25px;
+}
+
+.info-section .link {
+    margin-top: auto;
+    user-select: none;
+    cursor: pointer;
+    margin-bottom: auto;
+    color: #8f8f8f;
+}
+
+.panel-header .user-section {
+    display: grid;
+    grid-template-columns: 35% 35% auto;
+}
+
+
+.user-section > div {
+    padding: 10px;
+}
+
+.user-section .user {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+
+.user .avatar-container {
+    display: flex;
+    justify-content: center;
+}
+
+.user .avatar-container img {
+    margin-top: auto;
+    margin-bottom: auto;
+    max-width: 40px;
+    max-height: 40px;
+}
+
+.user .user-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.user-info-container .username {
+    color: #8f8f8f;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+.user-info-container .balance {
+    color: #8f8f8f;
+}
+
+
+
+.pay-container .pay-button {
+    border-width: 1px;
+    cursor: pointer;
+    margin: auto;
+    border-color: black;
+    border-radius: 8px;
+    color: white;
+
+    line-height: 45px;
+    height: 45px;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    border-style: solid;
+    background: linear-gradient(98.11deg, #2F68FE 0%, #7B9FFE 47.88%, #DD5789 100%);
+}
+
+.logout-container .logout-button {
+    border-color: #2F68FE;
+    border-width: 1px;
+    padding-left: 35px;
+    padding-right: 35px;
+    border-radius: 8px;
+    cursor: pointer;
+    line-height: 46px;
+    height: 46px;
+    border-style: solid;
+    margin: auto;
+    margin-left: 0;
+    background: linear-gradient(98.11deg, #2F68FE 0%, #7B9FFE 47.88%, #DD5789 100%);
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.pay-container {
+    display: flex;
+}
+
+
+.logout-container {
+    display: flex;
+}
+}

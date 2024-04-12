@@ -1,4 +1,4 @@
-@media (min-width: 350px) and (min-height: 450px) and (max-width: 1000px) and (max-height: 900px) {
+@media (max-width: 1000px){
 
 .register {
     width: 100%;
@@ -10,7 +10,10 @@
 }
 
 .register .form-container {
-    width: 100%;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
     margin-bottom: 50px;
 }
 
@@ -136,7 +139,7 @@
     border-width: 1px;
 }
 
-.agreement-container .checkmark. img {
+.agreement-container .checkmark img {
     display: block;
 }
 
@@ -145,6 +148,8 @@
     color: #868587;
     margin-left: 20px;
     font-size: 0.9rem;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .agreement-container .text a {

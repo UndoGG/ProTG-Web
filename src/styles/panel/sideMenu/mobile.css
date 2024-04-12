@@ -1,0 +1,40 @@
+@media screen and (max-width: 1040px) {
+.pc-side-menu {
+    display: none;
+}
+
+.mobile-side-menu {
+    margin-top: 50px;
+    width: 100%;
+
+    display: block;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.mobile-side-menu .section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+}
+
+.mobile-side-menu .section .title {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.mobile-side-menu .section .pages-container {
+    font-size: 1.4em;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-side-menu .section .pages-container .page {
+    width: 100%;
+    text-align: center;
+    color: #8f8f8f;
+    cursor: pointer;
+}}

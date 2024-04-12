@@ -1,0 +1,69 @@
+@media screen and (max-width: 1040px) {
+    .files {
+        height: fit-content;
+    }
+
+    .sub-pool {
+        max-width: 100%;
+    }
+
+    .sub-pool .head {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        height: fit-content;
+
+        padding-bottom: 20px;
+        border-style: solid;
+        border-color: transparent;
+        border-bottom-color: #202937;
+
+    }
+
+    .head .window-head {
+        cursor: pointer;
+    }
+
+    .head .active {
+        color: white;
+    }
+
+    .head .inactive {
+        color: #8f8f8f;
+    }
+
+    .window-head .active-background {
+        height: 2px;
+        width: 100%;
+        margin-top: 15px;
+        background: linear-gradient(98.11deg, #2F68FE 0%, #7B9FFE 47.88%, #DD5789 100%);
+    }
+
+    .window .file-inputs-container {
+        margin-top: 30px;
+        display: flex;
+        gap: 2%;
+        flex-wrap: wrap;
+    }
+
+    .file-inputs-container .file-input-container {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    .file-inputs-container .long-file-input {
+        width: 100%;
+    }
+
+    .file-inputs-container .file-input {
+        margin-top: 10px;
+        border-style: solid;
+        border-color: gray;
+        border-width: 1px;
+
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}

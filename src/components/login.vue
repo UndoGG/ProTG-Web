@@ -2,7 +2,7 @@
 <script>
 import '@/styles/register/max.css';
 import '@/styles/global/header/max.css';
-import '@/styles/all.css';
+import '@/styles/general.css';
 import Header from "@/components/global/header.vue";
 import Footer from "@/components/global/footer.vue";
 import {openLink} from "@/scripts/links.js";
@@ -17,8 +17,8 @@ export default {
   },
   computed: {},
   methods: {
-    redirect(link) {
-      openLink(link, true);
+    redirect(link, blank=true) {
+      openLink(link, blank);
     }
   }
 };
@@ -55,7 +55,7 @@ export default {
           </div>
         </div>
 
-        <div class="done-button">Войти</div>
+        <div class="done-button" @click="redirect('/panel', false)">Войти</div>
         <div class="have_account">Ещё не зарегистрированы? <div></div><a href="/registration">Создать аккаунт</a></div>
       </div>
     </div>

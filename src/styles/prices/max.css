@@ -1,0 +1,31 @@
+@media screen and (min-width: 1040px) and (min-height: 900px) {
+    .prices {
+        width: 100%;
+        height: fit-content;
+        min-height: 100%;
+        position: absolute;
+        background: #0d1117;
+        margin: 0;
+        padding: 0;
+
+        color: white;
+    }
+
+    .prices-container {
+        width: 50%;
+        margin-top: 200px;
+        margin-bottom: 200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .prices-container .title {
+        font-size: 50px;
+    }
+
+    .prices-container .text {
+        margin-top: 25px;
+        line-height: 30px;
+        font-size: 1.3em;
+    }
+}

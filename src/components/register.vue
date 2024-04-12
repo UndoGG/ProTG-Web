@@ -1,9 +1,9 @@
 <!--suppress ALL -->
 <script>
 import '@/styles/register/max.css';
-import '@/styles/register/350x450.css';
+import '@/styles/register/mobile.css';
 import '@/styles/global/header/max.css';
-import '@/styles/all.css';
+import '@/styles/general.css';
 import Header from "@/components/global/header.vue";
 import Footer from "@/components/global/footer.vue";
 import {openLink} from "@/scripts/links.js";
@@ -27,8 +27,8 @@ export default {
         checkmark_component.style.display = 'none';
       }
     },
-    redirect(link) {
-      openLink(link, true);
+    redirect(link, blank=true) {
+      openLink(link, blank);
     }
   }
 };
@@ -92,7 +92,7 @@ export default {
           </div>
           <div class="text">Я ознакомился и согласен с <a href="/agreement">Политикой конфиденциальности</a> и <a href="/agreement">Политикой обработки персональных данных</a></div>
         </div>
-        <div class="done-button">Зарегистрироваться</div>
+        <div class="done-button" @click="redirect('/panel', false)">Зарегистрироваться</div>
         <div class="have_account">Уже есть аккаунт? <div></div><a href="/login">Войти в аккаунт</a></div>
       </div>
     </div>

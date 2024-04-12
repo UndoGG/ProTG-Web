@@ -1,8 +1,8 @@
 <!--suppress ALL -->
 <script>
-import '@/styles/global/header/300x450.css';
+import '@/styles/global/header/mobile.css';
 import '@/styles/global/header/max.css';
-import '@/styles/all.css';
+import '@/styles/general.css';
 import {openLink} from "@/scripts/links.js";
 import HeaderMobile from "@/components/global/header-mobile.vue";
 
@@ -36,10 +36,10 @@ export default {
       </div>
       <div class="headings">
         <div class="heading">
-          <div class="heading-text">Цены</div>
+          <div class="heading-text" @click="redirect('/prices')">Цены</div>
         </div>
         <div class="heading">
-          <div class="heading-text">Как пользоваться сервисом</div>
+          <div class="heading-text" @click="redirect('/faq')">Как пользоваться сервисом</div>
         </div>
       </div>
       <div class="auth-container">

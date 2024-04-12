@@ -1,0 +1,35 @@
+@media screen and (min-width: 1040px) and (min-height: 900px) {
+    .mobile-side-menu {
+        display: none;
+    }
+    .pc-side-menu {
+        width: 25%;
+
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .pc-side-menu .section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .pc-side-menu .section .title {
+        font-size: 1.5em;
+    }
+
+    .pc-side-menu .section .pages-container {
+        font-size: 1.4em;
+        gap: 5px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .pages-container .page {
+        color: #8f8f8f;
+        cursor: pointer;
+        width: fit-content;
+    }
+}

@@ -1,4 +1,4 @@
-@media screen and (min-width: 300px) and (min-height: 450px) and (max-width: 1040px) and (max-height: 1000px) {
+@media screen and (max-width: 1040px) {
 .header {
     flex-direction: row;
     justify-content: center;
@@ -132,6 +132,7 @@
     justify-content: center;
     align-content: center;
     align-items: center;
+    /*display: none;*/
 }
 
 .header-mobile-main .logo-container img {

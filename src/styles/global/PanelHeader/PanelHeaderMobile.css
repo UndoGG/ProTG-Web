@@ -1,0 +1,136 @@
+.panel-header-mobile {
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 1000;
+    position: fixed;
+    background: #131921;
+}
+
+
+.panel-header-mobile .head {
+    display: flex;
+    height: 50px;
+}
+
+.panel-header-mobile .head .logo {
+    margin-left: 20px;
+    max-width: 120px;
+    max-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.panel-header-mobile .head .logo img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.panel-header-mobile .head .exit-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-left: auto;
+    margin-right: 20px;
+    margin-top: 3px;
+    width: 35px;
+}
+
+.panel-head {
+    border-style: solid;
+    border-color: transparent;
+    border-bottom-color: #131921;
+    border-width: 1px;
+}
+
+.panel-header-mobile .headings {
+    border-style: solid;
+    margin-top: 30px;
+    border-color: transparent;
+    border-bottom-color: #131921;
+    border-width: 1px;
+}
+
+.panel-header-mobile .headings .link {
+    color: gray;
+    font-size: 1.1rem;
+    margin-left: 15px;
+    margin-bottom: 40px;
+}
+
+
+.panel-header-mobile .auth-container {
+    margin-top: 30px;
+}
+
+
+.panel-header-mobile .auth-container .button {
+    border-color: #2F68FE;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    border-width: 1px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+
+    line-height: 46px;
+    height: 46px;
+    border-style: solid;
+    background: linear-gradient(98.11deg, #2F68FE 0%, #7B9FFE 47.88%, #DD5789 100%);
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.panel-header-mobile .auth-container .button-reverse {
+    border-width: 1px;
+    width: 55%;
+    margin-left: 15px;
+    margin-top: 15px;
+    margin-right: auto;
+    text-align: center;
+    cursor: pointer;
+    border-color: black;
+    border-radius: 8px;
+    color: white;
+
+    line-height: 46px;
+    height: 46px;
+    border-style: solid;
+    background: linear-gradient(98.11deg, #2F68FE 0%, #7B9FFE 47.88%, #DD5789 100%);
+}
+
+
+
+.user {
+    min-width: 500px;
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+
+.user .avatar-container {
+    display: flex;
+    justify-content: center;
+}
+
+.user .user-info-container {
+    margin-left: 20px;
+    min-width: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.user-info-container .username {
+    color: #8f8f8f;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+.user-info-container .balance {
+    color: #8f8f8f;
+}

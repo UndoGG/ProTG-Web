@@ -1,8 +1,8 @@
 <!--suppress ALL -->
 <script>
 import '@/styles/global/footer/max.css';
-import '@/styles/global/footer/300x450.css';
-import '@/styles/all.css';
+import '@/styles/global/footer/mobile.css';
+import '@/styles/general.css';
 import {openLink} from "@/scripts/links.js";
 
 export default {

@@ -1,11 +1,12 @@
 <!--suppress ALL -->
 <script>
-import '@/styles/global/header/header-mobile.css';
+import '@/styles/global/PanelHeader/mobile.css';
+import '@/styles/global/PanelHeader/PanelHeaderMobile.css';
 import '@/styles/general.css';
 import {openLink} from "@/scripts/links.js";
 
 export default {
-  name: 'HeaderMobile',
+  name: 'PanelHeaderMobile',
   data() {
     return {};
   },
@@ -23,7 +24,7 @@ export default {
 </script>
 
 <template>
-  <div class="header-mobile" id="header-mobile">
+  <div class="panel-header-mobile" id="header-mobile">
     <div class="head">
       <div class="logo" @click="redirect('/')">
         <img src="/assets/icons/logo.png" alt="logo">
@@ -36,11 +37,20 @@ export default {
     <div class="headings">
       <div class="link" @click="redirect('/prices')">Цены</div>
       <div class="link" @click="redirect('/faq')">Как пользоваться сервисом</div>
+      <div class="link" @click="redirect('/panel')">Перейти в кабинет</div>
     </div>
 
     <div class="auth-container">
-      <div class="button" @click="redirect('login')">Войти</div>
-      <div class="button-reverse" @click="redirect('registration')">Регистрация</div>
+      <div class="button-reverse">Оформить подписку</div>
+
+      <div class="user">
+        <div class="user-info-container">
+          <div class="username">Username</div>
+          <div class="balance">Баланс счёта 0 ₽</div>
+        </div>
+      </div>
+
+      <div class="button-reverse" @click="redirect('/')">Выйти</div>
     </div>
   </div>
 </template>

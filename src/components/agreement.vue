@@ -3,7 +3,7 @@
 import '@/styles/agreement/max.css';
 import '@/styles/agreement/300x450.css';
 import '@/styles/global/header/max.css';
-import '@/styles/all.css';
+import '@/styles/general.css';
 import Header from "@/components/global/header.vue";
 import Footer from "@/components/global/footer.vue";
 import {openLink} from "@/scripts/links.js";

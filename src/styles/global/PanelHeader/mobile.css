@@ -1,0 +1,58 @@
+@media screen and (max-width: 1040px) {
+.panel-header {
+    width: 100%;
+    margin: 0;
+    background: #0d1117;
+    min-height: 60px;
+
+    display: flex;
+}
+
+.panel-header > div {
+    padding: 0;
+}
+
+.panel-header .logo-section {
+    display: flex;
+    margin-left: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.panel-header .logo-section img {
+    min-width: 50px;
+    max-width: 110px;
+    cursor: pointer;
+}
+
+.panel-header .info-section {
+    text-align: left;
+    display: none;
+    gap: 35px;
+}
+
+.info-section .link:first-child {
+    margin-left: 25px;
+}
+
+.info-section .link {
+    margin-top: auto;
+    user-select: none;
+    cursor: pointer;
+    margin-bottom: auto;
+    color: #8f8f8f;
+}
+
+.panel-header .user-section {
+    display: none;
+    grid-template-columns: 35% 35% auto;
+}
+
+.panel-menu-container {
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 20px;
+}
+
+}
