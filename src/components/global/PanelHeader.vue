@@ -5,16 +5,36 @@ import '@/styles/global/PanelHeader/mobile.css';
 import '@/styles/general.css';
 import {openLink} from "@/scripts/links.js";
 import PanelHeaderMobile from "@/components/global/PanelHeaderMobile.vue";
+import {deleteCookie, readCookie, setCookie} from "@/scripts/cookie.js";
+
 
 export default {
   name: 'PanelHeader',
   data() {
     return {};
   },
+  computed: {
+    info() {
+      let lastUsername = readCookie('username')
+      if (this.$store.state.userInfo == null) {
+        return {'username': lastUsername}
+      }
+
+      if (this.$store.state.userInfo.username !== lastUsername) {
+        setCookie('username', this.$store.state.userInfo.username)
+      }
+
+      return this.$store.state.userInfo
+    }
+  },
   components: {PanelHeaderMobile},
   methods: {
     open(link) {
       openLink(link, false);
+    },
+    logout() {
+      deleteCookie('auth')
+      this.open('/')
     },
     show() {
       let headerElement = document.getElementById('header-mobile')
@@ -40,15 +60,15 @@ export default {
           <img alt="avatar" src="/assets/icons/avatar.png">
         </div>
         <div class="user-info-container">
-          <div class="username">Username</div>
+          <div class="username">{{info.username}}</div>
           <div class="balance">Баланс счёта 0 ₽</div>
         </div>
       </div>
-      <div class="pay-container">
-        <div class="pay-button">Оформить подписку</div>
-      </div>
+<!--      <div class="pay-container">-->
+<!--        <div class="pay-button">Оформить подписку</div>-->
+<!--      </div>-->
       <div class="logout-container">
-        <div class="logout-button" @click="open('/')">Выйти</div>
+        <div class="logout-button" @click="logout">Выйти</div>
       </div>
     </div>
 

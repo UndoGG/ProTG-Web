@@ -41,7 +41,7 @@ export default {
     </div>
 
     <div class="auth-container">
-      <div class="button-reverse">Оформить подписку</div>
+<!--      <div class="button-reverse">Оформить подписку</div>-->
 
       <div class="user">
         <div class="user-info-container">

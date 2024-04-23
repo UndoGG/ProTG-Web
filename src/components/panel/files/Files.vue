@@ -9,6 +9,7 @@ import PanelHeader from "@/components/global/PanelHeader.vue";
 import PCSideMenu from "@/components/panel/PCSideMenu.vue";
 import SubPoolHead from "@/components/panel/files/SubPoolHead.vue";
 import MobileSideMenu from "@/components/panel/MobileSideMenu.vue";
+import CheckAuth from "@/components/panel/CheckAuth.vue";
 
 
 export default {
@@ -16,6 +17,7 @@ export default {
     return {};
   },
   components: {
+    CheckAuth,
     MobileSideMenu,
     Footer,
     PanelHeader,
@@ -38,6 +40,7 @@ export default {
 </script>
 
 <template>
+  <CheckAuth></CheckAuth>
   <div class="files panel-base">
     <PanelHeader></PanelHeader>
     <div class="panel-container">

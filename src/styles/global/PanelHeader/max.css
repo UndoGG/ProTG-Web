@@ -90,6 +90,7 @@
 }
 .user-info-container .balance {
     color: #8f8f8f;
+    max-width: 95%;
 }
 
 

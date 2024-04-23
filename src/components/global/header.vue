@@ -14,7 +14,8 @@ export default {
   components: {
     HeaderMobile
   },
-  computed: {},
+  computed: {
+  },
   methods: {
     redirect(link) {
       openLink(link, false)

@@ -8,12 +8,14 @@ import Footer from "@/components/global/footer.vue";
 import PanelHeader from "@/components/global/PanelHeader.vue";
 import PCSideMenu from "@/components/panel/PCSideMenu.vue";
 import MobileSideMenu from "@/components/panel/MobileSideMenu.vue";
+import CheckAuth from "@/components/panel/CheckAuth.vue";
 
 export default {
   data() {
     return {};
   },
   components: {
+    CheckAuth,
     Footer,
     PanelHeader,
     PCSideMenu,
@@ -25,6 +27,7 @@ export default {
 </script>
 
 <template>
+  <CheckAuth></CheckAuth>
   <div class="invite dispatch panel-base">
     <PanelHeader></PanelHeader>
     <div class="panel-container">

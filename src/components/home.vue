@@ -7,6 +7,7 @@ import '@/styles/general.css';
 import Header from "@/components/global/header.vue";
 import Footer from "@/components/global/footer.vue";
 import {openLink} from "@/scripts/links.js";
+import {loadAuthCookies} from "@/scripts/auth.js";
 
 export default {
   data() {

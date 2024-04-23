@@ -24,6 +24,7 @@ export default {
 </script>
 
 <template>
+  <CheckAuth></CheckAuth>
   <div class="auditory panel-base">
     <PanelHeader></PanelHeader>
     <div class="panel-container">
