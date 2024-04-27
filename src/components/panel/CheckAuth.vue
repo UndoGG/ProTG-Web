@@ -15,25 +15,27 @@ export default {
   },
   computed: {},
   methods: {
+    async update() {
+      this.auth = await loadAuthCookies()
+      if (this.auth == null) {
+        this.redirect('/login', false)
+      }
+
+      let userInfo = await request('auth/me', 'get', this.auth)
+      if (userInfo.response != null) {
+        this.redirect('/login', false)
+        return
+      }
+
+      this.$store.commit('setUserInfo', userInfo.data)
+    },
     redirect(link, blank) {
       openLink(link, blank);
     }
   },
   async mounted() {
-    this.auth = await loadAuthCookies()
-    if (this.auth == null) {
-      this.redirect('/login', false)
-    }
-
-    let userInfo = await request('auth/me', 'get', this.auth)
-    console.log(userInfo.response)
-    if (userInfo.response != null) {
-      console.log(123)
-      this.redirect('/login', false)
-      return
-    }
-
-    this.$store.commit('setUserInfo', userInfo.data)
+    await this.update()
+    setInterval(this.update, 5000);
 
   }
 };

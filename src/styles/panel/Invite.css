@@ -5,13 +5,66 @@
 	margin-bottom: 20px;
     display: table;
     transition: opacity 0.5s;
+    max-height: 100%;
 }
 
+.task-list {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.id {
+    background-color: #3466ff;
+    text-align: center;
+    border-radius: 5px;
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-style: solid;
+    border-color: transparent;
+    font-weight: bold;
+}
+
+.status {
+    display: flex;
+    margin: auto;
+    width: fit-content;
+    font-weight: bold;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 5px;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.result {
+    background-color: green;
+    cursor: pointer;
+}
+
+
+.task-list::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+    background-color: transparent;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 10px;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+    border-color: transparent;
+    border-radius: 10px;
+    background-color: #cccaca;
+}
 
 .pool-block .tasks-table th {
     max-width: 100%;
     user-select: text;
-    text-align: left;
+    text-align: center;
 	padding-bottom: 5px;
 	padding-top: 5px;
     font-size: 0.9em;
@@ -20,6 +73,10 @@
     border-color: transparent;
     border-bottom-color: #202937;
     border-width: 1px;
+}
+
+.tasks-table tbody {
+    max-height: 100px !important;
 }
 
 .gray-tr td {

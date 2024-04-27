@@ -1,4 +1,4 @@
 export default {
-    backend_base: "https://api-pro-tg.ru:8000/"
+    backend_base: "https://api.pro-tg.ru/"
 }
-// PROD: api-pro-tg.ru  !HTTPS!
+// PROD: https://api.pro-tg.ru/

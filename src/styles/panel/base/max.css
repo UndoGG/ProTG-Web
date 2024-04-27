@@ -10,6 +10,17 @@
         color: white;
     }
 
+    .error {
+        text-align: center;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        color: #ff0000;
+        max-width: 90%;
+        word-wrap: anywhere;
+        display: none;
+    }
+
     .long-block {
         width: 100% !important;
         max-width: 100vw !important;
@@ -98,7 +109,10 @@
     .field-container textarea,
     .field-container input {
         margin-top: 10px;
+        padding-inline: 10px;
+        /*padding: 10px;*/
         border-radius: 3px;
+        transition: border-color 0.5s;
         border-width: 1px;
         color: white;
         text-align: left;
@@ -116,6 +130,23 @@
         resize: none;
     }
 
+    .field-container textarea::-webkit-scrollbar,
+    .field-container input::-webkit-scrollbar {
+        width: 2px;
+        height: 2px;
+        background-color: transparent;
+        border-style: solid;
+        border-color: transparent;
+        border-radius: 10px;
+    }
+
+    .field-container textarea::-webkit-scrollbar-thumb,
+    .field-container input::-webkit-scrollbar-thumb {
+        border-color: transparent;
+        border-radius: 10px;
+        background-color: #cccaca;
+    }
+
 
     .field-container input {
         padding-top: 0 !important;
@@ -123,6 +154,10 @@
 
     .field-container .paragraph {
         min-height: 300px;
+    }
+
+    .field-container .medium-paragraph {
+        min-height: 80px;
     }
 
 

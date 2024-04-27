@@ -50,7 +50,7 @@
 
 .panel-header .user-section {
     display: grid;
-    grid-template-columns: 35% 35% auto;
+    grid-template-columns: auto 35% auto;
 }
 
 
@@ -92,7 +92,6 @@
     color: #8f8f8f;
     max-width: 95%;
 }
-
 
 
 .pay-container .pay-button {

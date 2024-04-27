@@ -4,13 +4,26 @@ import '@/styles/global/PanelHeader/mobile.css';
 import '@/styles/global/PanelHeader/PanelHeaderMobile.css';
 import '@/styles/general.css';
 import {openLink} from "@/scripts/links.js";
+import {readCookie, setCookie} from "@/scripts/cookie.js";
 
 export default {
   name: 'PanelHeaderMobile',
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+    info() {
+      let lastUsername = readCookie('username')
+      if (this.$store.state.userInfo == null) {
+        return {'username': lastUsername}
+      }
+
+      if (this.$store.state.userInfo.username !== lastUsername) {
+        setCookie('username', this.$store.state.userInfo.username)
+      }
+
+      return this.$store.state.userInfo
+    }},
   methods: {
     remove() {
       let headerElement = document.getElementById('header-mobile')
@@ -45,8 +58,8 @@ export default {
 
       <div class="user">
         <div class="user-info-container">
-          <div class="username">Username</div>
-          <div class="balance">Баланс счёта 0 ₽</div>
+          <div class="username">{{info.username}}</div>
+          <div class="balance">Баланс счёта {{info.balance}}₽</div>
         </div>
       </div>
 

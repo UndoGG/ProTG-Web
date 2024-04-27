@@ -1,5 +1,6 @@
 import settings from "@/settings.js";
 import axios from "axios";
+import {openLink} from "@/scripts/links.js";
 
 export async function request(endpoint_or_full_url, method=null, auth=null, data=null) {
     let endpoint
@@ -52,4 +53,23 @@ export async function request(endpoint_or_full_url, method=null, auth=null, data
             // Если ошибка не имеет объекта response и это не сетевая ошибка
             return { error: 'Unknown Error' };
         }
+}
+
+export function validateResponse(response, error_element=null, errors=null) {
+    if (response.response != null) {
+        if (response.response.status === 401) {
+              openLink('/login', false);
+        }
+        else {
+            if (errors[response.response.status] == null) {
+                error_element.textContent = `Ошибка ${response.response.status}: ${JSON.stringify(response.response.data.detail)}`
+            }
+            else {
+                error_element.textContent = errors[response.response.status]
+            }
+            error_element.display = 'block'
+        }
+        return false
+    }
+    return true
 }

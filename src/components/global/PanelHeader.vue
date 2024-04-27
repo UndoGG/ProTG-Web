@@ -61,7 +61,7 @@ export default {
         </div>
         <div class="user-info-container">
           <div class="username">{{info.username}}</div>
-          <div class="balance">Баланс счёта 0 ₽</div>
+          <div class="balance">Баланс счёта {{info.balance}} ₽</div>
         </div>
       </div>
 <!--      <div class="pay-container">-->
