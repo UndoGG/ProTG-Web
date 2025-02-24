@@ -50,7 +50,7 @@ export default {
     <div class="headings">
       <div class="link" @click="redirect('/prices')">Цены</div>
       <div class="link" @click="redirect('/faq')">Как пользоваться сервисом</div>
-      <div class="link" @click="redirect('/panel')">Перейти в кабинет</div>
+      <div class="link" v-if="info.is_superuser" @click="redirect('/admin')" style="color: #dd5555;">Администрирование</div>
     </div>
 
     <div class="auth-container">

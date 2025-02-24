@@ -11,63 +11,22 @@ export function highlightBorder(element) {
   }, 500)
 }
 
-export function resolveStatusName(status_int) {
-  switch (status_int) {
-    case 1:
-      return 'Создан'
-    case 2:
-      return 'Поиск исполнителя'
-    case 3:
-      return 'В работе'
-    case 4:
-      return 'Исполнен'
-    case 5:
-      return 'Провален'
-    case 6:
-      return 'Ни одна отправка не удалась'
-    case 7:
-      return 'Недостаточно средств'
-    case 8:
-      return 'Ошибка безопасности'
-    case 9:
-      return 'Группа не найдена'
-    default:
-      return 'Неизвестно'
-  }
+export async function copy(text) {
+  try {
+      await navigator.clipboard.writeText(text);
+    } catch($e) {
+      alert(`Unable to copy text ${text}`);
+    }
 }
 
-export function resolveStatusStyle(status_int) {
-  let color = null
-  switch (status_int) {
-    case 1:
-      color = '#328071'
-      break
-    case 2:
-      color = '#c26528'
-      break
-    case 3:
-      color = '#3466ff'
-      break
-    case 4:
-      color = 'green'
-      break
-    case 5:
-      color = '#a21a1a'
-      break
-    case 6:
-      color = '#a21a1a'
-      break
-    case 7:
-      color = '#a21a1a'
-      break
-    case 8:
-      color = '#000000'
-      break
-    case 9:
-      color = '#a21a1a'
-      break
-    default:
-      color = 'purple'
-  }
-  return {"background-color": color}
+export function formatDate(inputDate) {
+  const date = new Date(inputDate);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }

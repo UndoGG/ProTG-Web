@@ -10,10 +10,12 @@ import PCSideMenu from "@/components/panel/PCSideMenu.vue";
 import MobileSideMenu from "@/components/panel/MobileSideMenu.vue";
 import CheckAuth from "@/components/panel/CheckAuth.vue";
 import {request, validateResponse} from "@/scripts/requests.js";
-import {setCookie} from "@/scripts/cookie.js";
 import {loadAuthCookies} from "@/scripts/auth.js";
 import {highlightBorder} from "@/scripts/misc.js";
-import {resolveStatusStyle, resolveStatusName} from "@/scripts/misc.js";
+import {resolveStatusName, resolveStatusStyle} from "@/scripts/resolver.js";
+import {getResult} from "@/scripts/helper.js";
+import TaskList from "@/components/panel/TaskList.vue";
+
 
 export default {
   components: {
@@ -21,47 +23,18 @@ export default {
     PanelHeader,
     PCSideMenu,
     MobileSideMenu,
-    CheckAuth
+    CheckAuth,
+    TaskList
   },
   computed: {},
   data() {
     return {
-      auth: null,
-      tasks: []
+      auth: null
     };
   },
   methods: {
-    resolveStatusStyle(int) {
-      return resolveStatusStyle(int)
-    },
-    resolveStatusName(int) {
-      return resolveStatusName(int)
-    },
-    async getTasks() {
-      this.tasks = await request('tasks/my', 'get', this.auth)
-      validateResponse(this.tasks)
-      this.tasks = this.tasks.data.reverse()
-    },
-
     getResult(text) {
-      // Создаем новый Blob объект с указанным текстом и MIME-типом
-      const blob = new Blob([text], { type: 'text/plain' });
-
-      // Создаем ссылку для объекта Blob
-      const url = URL.createObjectURL(blob);
-
-      // Создаем ссылку для скачивания файла
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'result.txt';
-
-      // Добавляем ссылку на страницу и эмулируем клик для скачивания файла
-      document.body.appendChild(link);
-      link.click();
-
-      // Очищаем ссылку и объект Blob после завершения скачивания
-      URL.revokeObjectURL(url);
-      document.body.removeChild(link);
+      return getResult(text)
     },
 
     async postInvite() {
@@ -91,23 +64,24 @@ export default {
       })
 
       let data = {
-        targets: targets
+        targets: targets,
+        params: []
       }
 
-      console.log(data)
-
       let createTaskResponse = await request('tasks/create', 'post', this.auth, data)
-      let success = validateResponse(createTaskResponse, errorEl)
+
+      let errors = {
+        429: 'Превышен лимит задач. Попробуйте позже!'
+      }
+      let success = validateResponse(createTaskResponse, errorEl, errors)
       if (success) {
         location.reload()
       }
-      console.log(success)
     }
   },
   async mounted() {
+    document.addEventListener('keydown', this.keyPress);
     this.auth = await loadAuthCookies()
-    await this.getTasks()
-    setInterval(this.getTasks, 5000);
   }
 };
 </script>
@@ -130,7 +104,7 @@ export default {
             <div class="fields-container">
               <div class="field-container">
                 <div >Группа для инвайта</div>
-                <textarea id="group" placeholder="Пригласительная или прямая ссылка"></textarea>
+                <textarea id="group" placeholder="Ссылка"></textarea>
               </div>
               <div class="field-container">
                 <div id="field-title">Получатели</div>
@@ -140,42 +114,11 @@ export default {
               </div>
             </div>
 
-            <div class="send-button" @click="postInvite">Запустить</div>
             <div class="error" id="error"></div>
+            <div class="send-button" @click="postInvite">Запустить</div>
           </div>
-          <div class="pool-block">
-            <div id="pool-block-title">Список задач</div>
-            <div class="task-list">
-              <table class="tasks-table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Статус</th>
-                    <th>Результат</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-if='this.tasks.length > 0' v-for="task in tasks" :key="task.id">
-                    <td>
-                      <div class="id">
-                        {{ task.id }}
-                      </div>
-                    </td>
-                    <td>
-                      <div :style="resolveStatusStyle(task.status)" class="status">
-                        {{ resolveStatusName(task.status) }}
-                      </div>
-                    </td>
-                    <td v-if="task.result != null">
-                      <div class="status result" @click="getResult(task.result)">
-                        Скачать
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+
+          <TaskList></TaskList>
         </div>
       </div>
 

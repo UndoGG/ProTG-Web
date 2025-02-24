@@ -8,10 +8,15 @@ import Header from "@/components/global/header.vue";
 import Footer from "@/components/global/footer.vue";
 import {openLink} from "@/scripts/links.js";
 import {loadAuthCookies} from "@/scripts/auth.js";
+import {deleteCookie} from "@/scripts/cookie.js";
+import {request} from "@/scripts/requests.js";
 
 export default {
   data() {
-    return {};
+    return {
+      auth: null,
+      isAuthenticated: false
+    };
   },
   components: {
     Header,

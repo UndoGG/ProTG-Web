@@ -1,0 +1,48 @@
+.users-list td .username,
+.users-list td .balance,
+.users-list td .admin,
+.users-list td .notAdmin,
+.users-list td .email {
+    margin: auto;
+    font-size: 1.2em;
+    width: fit-content;
+
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 10px;
+    background: #4d4d4d;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+
+    user-select: none;
+    cursor: pointer;
+
+    transition: background-color 0.5s;
+    text-align: center;
+}
+
+.users-list td .id {
+    min-width: 15px;
+    margin-right: 10px;
+}
+
+
+.users-list td .balance {
+    background-color: #09744f !important;
+    cursor: initial !important;
+    white-space: nowrap !important;
+}
+
+
+.users-list td .admin {
+    background-color: #0f7d15 !important;
+    cursor: initial !important;
+}
+
+
+.users-list td .notAdmin {
+    background-color: #09744f !important;
+    cursor: initial !important;
+}

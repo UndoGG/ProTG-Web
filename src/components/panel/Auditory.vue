@@ -1,6 +1,7 @@
 <!--suppress ALL -->
 <script>
 import '@/styles/panel/Invite.css';
+import '@/styles/panel/Auditory.css';
 import '@/styles/panel/base/max.css';
 import '@/styles/general.css';
 import Footer from "@/components/global/footer.vue";
@@ -8,14 +9,18 @@ import PanelHeader from "@/components/global/PanelHeader.vue";
 import PCSideMenu from "@/components/panel/PCSideMenu.vue";
 import MobileSideMenu from "@/components/panel/MobileSideMenu.vue";
 import CheckAuth from "@/components/panel/CheckAuth.vue";
-import {highlightBorder, resolveStatusName, resolveStatusStyle} from "@/scripts/misc.js";
+import {highlightBorder} from "@/scripts/misc.js";
+import {resolveStatusName, resolveStatusStyle} from "@/scripts/resolver.js";
 import {request, validateResponse} from "@/scripts/requests.js";
 import {loadAuthCookies} from "@/scripts/auth.js";
+import TaskList from "@/components/panel/TaskList.vue";
+
 
 export default {
   data() {
     return {
-      tasks: []
+      tasks: [],
+      filters: {}
     };
   },
   components: {
@@ -23,25 +28,29 @@ export default {
     MobileSideMenu,
     Footer,
     PanelHeader,
-    PCSideMenu
+    PCSideMenu,
+    TaskList
   },
   computed: {},
   methods: {
-    resolveStatusStyle(int) {
-      return resolveStatusStyle(int)
-    },
-    resolveStatusName(int) {
-      return resolveStatusName(int)
-    },
-    async getTasks() {
-      this.tasks = await request('tasks/my', 'get', this.auth)
-      validateResponse(this.tasks)
-      this.tasks = this.tasks.data.reverse()
-    },
-
     async postCollect() {
       let groupsEl = document.getElementById('groups')
       let errorEl = document.getElementById('error')
+      let onlineEl = document.getElementById('online')
+      let bioEl = document.getElementById('bio')
+
+      let avatarValue = this.filters['avatar']
+      console.log(avatarValue)
+      if (avatarValue === 'yes') {
+        avatarValue = true
+      }
+      else if (avatarValue === 'no') {
+        avatarValue = false
+      }
+      else {
+        avatarValue = null
+      }
+
       if (groupsEl.value.length < 1) {
         highlightBorder(groupsEl)
         return
@@ -58,48 +67,96 @@ export default {
         )
       })
 
-      console.log(targets)
+      let params = []
 
-      let data = {
-        targets: targets
+      if (onlineEl.value.length > 0) {
+        params.push({
+          'param_type': 2,
+          'value': onlineEl.value
+        })
       }
 
+      if (bioEl.value.length > 0) {
+        params.push({
+          'param_type': 3,
+          'value': bioEl.value
+        })
+      }
+
+      if (avatarValue != null) {
+        params.push({
+          'param_type': 1,
+          'value': avatarValue.toString()
+        })
+      }
+
+      let data = {
+        targets: targets,
+        params: params
+      }
       console.log(data)
 
+      let errors = {
+        429: 'Превышен лимит задач. Попробуйте позже!',
+        400: 'Неверное значение фильтров. Убедитесь, что ввели верные числа'
+      }
+
       let createTaskResponse = await request('tasks/create', 'post', this.auth, data)
-      let success = validateResponse(createTaskResponse, errorEl)
+      let success = validateResponse(createTaskResponse, errorEl, errors)
       if (success) {
         location.reload()
       }
-      console.log(success)
     },
+    selectFilterResult(filter_id, selected_name) {
+      let filter = document.getElementById(filter_id)
+      let element = null
+      filter.querySelectorAll(".select").forEach(select => {
+        if (select.dataset.name === selected_name) {
+          element = select
+          return
+        }
+      })
+      let name = element.dataset.name
 
-    getResult(text) {
-      // Создаем новый Blob объект с указанным текстом и MIME-типом
-      const blob = new Blob([text], { type: 'text/plain' });
-
-      // Создаем ссылку для объекта Blob
-      const url = URL.createObjectURL(blob);
-
-      // Создаем ссылку для скачивания файла
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'result.txt';
-
-      // Добавляем ссылку на страницу и эмулируем клик для скачивания файла
-      document.body.appendChild(link);
-      link.click();
-
-      // Очищаем ссылку и объект Blob после завершения скачивания
-      URL.revokeObjectURL(url);
-      document.body.removeChild(link);
+      this.resetFilter(filter_id)
+      element.classList.add(name)
+      element.style.opacity = 1
+      this.filters[filter_id] = name
+      console.log(this.filters)
     },
+    resetFilter(filter_id) {
+      let filter_selectbox = document.getElementById(filter_id)
+      filter_selectbox.querySelectorAll(".select").forEach(select => {
+        select.classList.remove(...select.classList)
+        select.classList.add('select')
+        select.style.opacity = 0.5
+        select.classList.add('default')
+      })
+    },
+    resetAllFilters() {
+      let filters = ['avatar']
+      filters.forEach(filter => {
+        this.resetFilter(filter)
+        this.selectFilterResult(filter, 'none')
+      })
+    },
+    unlistFilters() {
+      let filtersTitleEl = document.getElementById('fields-title')
+      let filtersEl = document.getElementById('filters')
+
+      if (filtersTitleEl.style.background !== 'gray') {
+        filtersTitleEl.style.background = 'gray'
+        filtersEl.style.display = 'block'
+      }
+      else {
+        filtersTitleEl.style.background = 'none'
+        filtersEl.style.display = 'none'
+      }
+    }
   },
   async mounted() {
     this.auth = await loadAuthCookies()
-    await this.getTasks()
-    await this.getTasks()
-    setInterval(this.getTasks, 5000);
+    this.resetAllFilters()
   }
 };
 </script>
@@ -115,7 +172,7 @@ export default {
       <div class="pool">
         <div id="pool-title">
           Сбор аудитории
-          <span style="font-size: 0.6em; color: #8f8f8f; cursor: pointer; border-style: solid; border-color: transparent; border-bottom: 2px dotted #8f8f8f;">Помощь</span>
+<!--          <span style="font-size: 0.6em; color: #8f8f8f; cursor: pointer; border-style: solid; border-color: transparent; border-bottom: 2px dotted #8f8f8f;">Помощь</span>-->
         </div>
         <div class="content">
           <div class="pool-block">
@@ -129,45 +186,56 @@ export default {
                 <div id="field-title">Группы/каналы</div>
                 <textarea id="groups" class="paragraph"></textarea>
               </div>
+              <div class="field-container params" >
+                <div class="field-title filters-title" id="fields-title" @click="unlistFilters">Фильтры</div>
+                <div id="filters">
+                  <div class="field-subtitle">
+                    Фильтры немного повышают стоимость сбора, но позволяют повысить гибкость.
+                    <div>&nbsp;</div>
+                    <div>Необязательно</div>
+                  </div>
+                  <div class="filters-container">
+                    <div class="filter">
+                      <div class="title">Есть аватарка</div>
+                      <div class="select-box try-not-wrap" id="avatar">
+                        <div class="select" data-name="yes"
+                        @click="this.selectFilterResult('avatar', 'yes')">
+                          <div class="symbol">✓</div>
+                        </div>
+                        <div class="select" data-name="none"
+                        @click="this.selectFilterResult('avatar', 'none')">
+                          <div class="symbol">|</div>
+                        </div>
+                        <div class="select" data-name="no"
+                        @click="this.selectFilterResult('avatar', 'no')">
+                          <div class="symbol">☓</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="filter">
+                      <div class="title">Последний раз в сети</div>
+                      <div class="select-box no-margin-left" id="last-seen">
+                        <input class="short-input no-margin-top center-placeholder" id="online" placeholder="<=" maxlength="4">
+                      </div>
+                      <div class="title">Дней назад</div>
+                    </div>
+                    <div class="filter">
+                      <div class="title">БИО содержит:</div>
+                      <div class="select-box no-margin-left" id="last-seen">
+                        <input class="no-margin-top center-placeholder" id="bio" placeholder="Текст">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div class="send-button" @click="postCollect">Запустить</div>
             <div class="error" id="error"></div>
+            <div class="send-button" @click="postCollect">Запустить</div>
           </div>
 
-          <div class="pool-block">
-            <div id="pool-block-title">Список задач</div>
-            <div class="task-list">
-              <table class="tasks-table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Статус</th>
-                    <th>Результат</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-if='this.tasks.length > 0' v-for="task in tasks" :key="task.id">
-                    <td>
-                      <div class="id">
-                        {{ task.id }}
-                      </div>
-                    </td>
-                    <td>
-                      <div :style="resolveStatusStyle(task.status)" class="status">
-                        {{ resolveStatusName(task.status) }}
-                      </div>
-                    </td>
-                    <td v-if="task.result != null">
-                      <div class="status result" @click="getResult(task.result)">
-                        Скачать
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <TaskList></TaskList>
+
         </div>
       </div>
 

@@ -1,0 +1,43 @@
+.balance #buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    justify-content: center;
+    gap: 10px;
+}
+
+#buttons-container .button {
+    border-style: solid;
+    border-color: transparent;
+    background: #666666;
+    border-radius: 10px;
+
+    padding: 10px;
+    user-select: none;
+    cursor: pointer;
+
+    transition: background 0.5s;
+}
+.balance #result {
+    text-align: center;
+    display: none;
+    font-size: 2em;
+
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 10px;
+
+    width: fit-content;
+    margin: auto;
+
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    background-color: #3466ff;
+}

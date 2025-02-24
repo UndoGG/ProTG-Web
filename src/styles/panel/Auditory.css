@@ -1,0 +1,107 @@
+.filters-container {
+    border-style: solid;
+    border-color: gray;
+    border-width: 1px;
+    margin-top: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+#filters {
+    display: none;
+}
+
+.filters-title {
+    user-select: none;
+    border-color: gray;
+    cursor: pointer;
+    border-style: solid;
+    border-radius: 10px;
+    width: fit-content;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.filters-container .filter {
+    border-style: solid;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-color: transparent;
+    background-color: #0d1117;
+    border-radius: 5px;
+
+    justify-content: center;
+    display: flex;
+    gap: 10px;
+}
+
+.filter .title {
+    font-size: 1.1em;
+    margin-top: auto;
+    text-align: center;
+    margin-bottom: auto;
+}
+
+.filter .select-box {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    width: fit-content;
+}
+
+.try-not-wrap {
+}
+
+.select-box input {
+    text-align: center !important;
+    min-width: 30px;
+}
+
+.select-box .select {
+    height: fit-content;
+    min-height: 25px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: flex;
+    justify-content: center;
+
+    border-style: solid;
+    border-width: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
+    min-width: 20px;
+    border-color: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.select-box .default {
+    background-color: gray;
+}
+
+.select-box .yes {
+    background-color: #36a24f;
+}
+
+.select-box .no {
+    background-color: #c21717;
+}
+
+.select-box .none {
+    background-color: #9d6921;
+}
+
+.select .symbol {
+    font-weight: bold;
+    margin-top: auto;
+    margin-bottom: auto;
+}

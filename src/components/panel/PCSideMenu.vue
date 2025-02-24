@@ -26,13 +26,14 @@ export default {
       <div class="title">Продвижение</div>
       <div class="pages-container">
         <div class="page" @click="open('/panel')">Инвайт</div>
+        <div class="page" @click="open('/panel/dispatch')">Рассылка</div>
       </div>
     </div>
     <div class="section">
       <div class="title">Утилиты</div>
       <div class="pages-container">
         <div class="page" @click="open('/panel/auditory')">Сбор аудитории</div>
-        <div class="page" @click="open('/panel/files')">Операции с файлами</div>
+<!--        <div class="page" @click="open('/panel/files')">Операции с файлами</div>-->
       </div>
     </div>
     <div class="section">
@@ -42,7 +43,6 @@ export default {
         <div class="page" @click="open('/panel/deposit')">Пополнить баланс</div>
 <!--        <div class="page" @click="open('/panel/partnership')">Партнёрская программа</div>-->
         <div class="page" @click="open('/panel/guidance')">Обучение</div>
-        <div class="page" @click="open('/panel/dispatch')">Рассылка</div>
       </div>
     </div>
   </div>

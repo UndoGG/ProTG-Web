@@ -6,6 +6,15 @@
     display: table;
     transition: opacity 0.5s;
     max-height: 100%;
+    max-width: 95vw;
+}
+
+.pool-block > div {
+    max-width: 99vw !important;
+}
+
+.pool-block input {
+    max-width: 99vw !important;
 }
 
 .task-list {
@@ -35,6 +44,7 @@
     border-color: transparent;
     border-radius: 5px;
     padding-left: 7px;
+    text-align: center;
     padding-right: 7px;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -62,7 +72,7 @@
 }
 
 .pool-block .tasks-table th {
-    max-width: 100%;
+    max-width: 95vw;
     user-select: text;
     text-align: center;
 	padding-bottom: 5px;
@@ -77,6 +87,7 @@
 
 .tasks-table tbody {
     max-height: 100px !important;
+    max-width: 95vw;
 }
 
 .gray-tr td {
@@ -91,4 +102,5 @@
 	padding-bottom: 5px;
 	padding-top: 5px;
     color: white;
+    max-width: 95vw;
 }

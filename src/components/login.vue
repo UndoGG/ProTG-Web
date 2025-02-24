@@ -8,10 +8,13 @@ import Footer from "@/components/global/footer.vue";
 import {openLink} from "@/scripts/links.js";
 import {request} from "@/scripts/requests.js";
 import {setCookie} from "@/scripts/cookie.js";
+import {loadAuthCookies} from "@/scripts/auth.js";
 
 export default {
   data() {
-    return {};
+    return {
+      auth: null
+    };
   },
   components: {
     Header,
@@ -19,7 +22,7 @@ export default {
   },
   computed: {},
   methods: {
-    async register() {
+    async login() {
       let nameEl = document.getElementById('name');
       let passEl = document.getElementById('password');
 
@@ -67,6 +70,25 @@ export default {
     },
     redirect(link, blank=true) {
       openLink(link, blank);
+    },
+    keyPress(event) {
+      if (event.key === "Enter") {
+        this.login()
+      }
+    }
+  },
+  async mounted() {
+    document.addEventListener('keydown', this.keyPress);
+
+    this.auth = await loadAuthCookies()
+    if (this.auth == null) {
+      return
+    }
+
+    let userInfo = await request('auth/me', 'get', this.auth)
+    if (userInfo.response == null) {
+      this.redirect('/panel', false)
+      return
     }
   }
 };
@@ -99,13 +121,13 @@ export default {
         <div class="inputs-container">
           <div class="input-container">
             <div class="title">Пароль</div>
-            <input maxlength="32" id="password" type="text">
+            <input maxlength="32" id="password" type="password">
           </div>
         </div>
 
 
         <div class="error-text" id="error"></div>
-        <div class="done-button" @click="register()">Войти</div>
+        <div class="done-button" @click="login()">Войти</div>
         <div class="have_account">Ещё не зарегистрированы? <div></div><a href="/registration">Создать аккаунт</a></div>
       </div>
     </div>

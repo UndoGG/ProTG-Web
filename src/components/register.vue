@@ -9,10 +9,13 @@ import Footer from "@/components/global/footer.vue";
 import {setCookie} from "@/scripts/cookie.js";
 import {openLink} from "@/scripts/links.js";
 import {request} from "@/scripts/requests.js";
+import {loadAuthCookies} from "@/scripts/auth.js";
 
 export default {
   data() {
-    return {};
+    return {
+      auth: null
+    };
   },
   components: {
     Header,
@@ -107,6 +110,25 @@ export default {
     },
     redirect(link, blank=true) {
       openLink(link, blank);
+    },
+
+    keyPress(event) {
+      if (event.key === "Enter") {
+        this.register()
+      }
+    }
+  },
+  async mounted() {
+    document.addEventListener('keydown', this.keyPress);
+    this.auth = await loadAuthCookies()
+    if (this.auth == null) {
+      return
+    }
+
+    let userInfo = await request('auth/me', 'get', this.auth)
+    if (userInfo.response == null) {
+      this.redirect('/panel', false)
+      return
     }
   }
 };

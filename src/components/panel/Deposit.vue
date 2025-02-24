@@ -1,6 +1,7 @@
 <!--suppress ALL -->
 <script>
 import '@/styles/panel/Invite.css';
+import '@/styles/panel/Deposit.css';
 import '@/styles/panel/base/max.css';
 import '@/styles/general.css';
 import Footer from "@/components/global/footer.vue";
@@ -8,10 +9,19 @@ import PanelHeader from "@/components/global/PanelHeader.vue";
 import PCSideMenu from "@/components/panel/PCSideMenu.vue";
 import MobileSideMenu from "@/components/panel/MobileSideMenu.vue";
 import CheckAuth from "@/components/panel/CheckAuth.vue";
+import {request, validateResponse} from "@/scripts/requests.js";
+import {loadAuthCookies} from "@/scripts/auth.js";
+import {formatDate, highlightBorder} from "@/scripts/misc.js"
+import {openLink} from "@/scripts/links.js";
+import {resolveInvoiceStatusName, resolveInvoiceStatusStyle, resolveStatusName} from "@/scripts/resolver.js";
+
 
 export default {
   data() {
-    return {};
+    return {
+      invoices: null,
+      auth: null
+    };
   },
   components: {
     CheckAuth,
@@ -22,6 +32,15 @@ export default {
   },
   computed: {},
   methods: {
+    resolveStatusStyle(int) {
+      return resolveInvoiceStatusStyle(int)
+    },
+    resolveStatusName(int) {
+      return resolveInvoiceStatusName(int)
+    },
+    formatDate(inputDate) {
+      return formatDate(inputDate)
+    },
     togglePayoutMethod(clickedElementId) {
       let checkmark_ym = document.getElementById('checkmark-YM');
       let checkmark_nrf = document.getElementById('checkmark-NRF');
@@ -33,7 +52,38 @@ export default {
         checkmark_ym.style.display = 'none';
         checkmark_nrf.style.display = 'block';
       }
-    }
+    },
+    async pay() {
+      let summEl = document.getElementById('summ')
+      let errorEl = document.getElementById('error')
+      errorEl.style.display = 'none';
+
+      if (summEl.value.length < 1) {
+        highlightBorder(summEl)
+        return
+      }
+
+      let data = {
+        amount: parseInt(summEl.value)
+      }
+
+      let createInvoiceResponse = await request('invoices/create', 'post', this.auth, data)
+
+      let success = validateResponse(createInvoiceResponse, errorEl)
+      if (success) {
+        openLink(createInvoiceResponse.data, false)
+      }
+    },
+    async getInvoices() {
+      this.invoices = await request('invoices/my', 'get', this.auth)
+      validateResponse(this.invoices.data)
+      console.log(this.invoices.data)
+      this.invoices = this.invoices.data.reverse()
+    },
+  },
+  async mounted() {
+    this.auth = await loadAuthCookies()
+    await this.getInvoices()
   }
 };
 </script>
@@ -55,30 +105,34 @@ export default {
             <div class="fields-container">
               <div class="field-container">
                 <div id="field-title">Сумма, ₽</div>
-                <input type="number"></input>
+                <input type="number"
+                       id="summ"
+                       style="width: 100px !important; text-align: center"
+                ></input>
               </div>
-              <div class="field-container">
-                <div id="field-title">Промокод</div>
-                <textarea></textarea>
-              </div>
+<!--              <div class="field-container">-->
+<!--                <div id="field-title">Промокод</div>-->
+<!--                <textarea></textarea>-->
+<!--              </div>-->
             </div>
 
-            <div class="options-container">
-              <div class="agreement-container no-margin-left">
-                <div class="checkmark" @click="togglePayoutMethod('checkmark-YM')">
-                  <img alt="checkmark" src="/assets/icons/checkmark.png" class="checkmark-image" id="checkmark-YM"></img>
-                </div>
-                <div class="text">Карты РФ, Юmoney</div>
-              </div>
-              <div class="agreement-container no-margin-left">
-                <div class="checkmark" @click="togglePayoutMethod('checkmark-NRF')">
-                  <img alt="checkmark" src="/assets/icons/checkmark.png" class="checkmark-image" id="checkmark-NRF" style="display: none;"></img>
-                </div>
-                <div class="text">Карты не РФ</div>
-              </div>
-            </div>
+<!--            <div class="options-container">-->
+<!--              <div class="agreement-container no-margin-left">-->
+<!--                <div class="checkmark" @click="togglePayoutMethod('checkmark-YM')">-->
+<!--                  <img alt="checkmark" src="/assets/icons/checkmark.png" class="checkmark-image" id="checkmark-YM"></img>-->
+<!--                </div>-->
+<!--                <div class="text">Карты РФ, Юmoney</div>-->
+<!--              </div>-->
+<!--              <div class="agreement-container no-margin-left">-->
+<!--                <div class="checkmark" @click="togglePayoutMethod('checkmark-NRF')">-->
+<!--                  <img alt="checkmark" src="/assets/icons/checkmark.png" class="checkmark-image" id="checkmark-NRF" style="display: none;"></img>-->
+<!--                </div>-->
+<!--                <div class="text">Карты не РФ</div>-->
+<!--              </div>-->
+<!--            </div>-->
 
-            <div class="send-button">Продолжить</div>
+            <div class="error" id="error"></div>
+            <div class="send-button" @click="pay">Продолжить</div>
           </div>
           <div class="pool-block">
             <div id="pool-block-title">История</div>
@@ -86,17 +140,17 @@ export default {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Сумма, ₽</th>
-                  <th>Комментарий</th>
+                  <th>Сумма</th>
+                  <th>Статус</th>
                   <th>Дата</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="gray-tr">
-                  <td>0000</td>
-                  <td>00</td>
-                  <td>DUMMY</td>
-                  <td>2009-06-08 10:39:42</td>
+                <tr class="gray-tr invoices-table center-tds" v-for="invoice in invoices" :key="invoices.id">
+                  <td>{{ invoice.id }}</td>
+                  <td v-if="invoice.amount">{{ invoice.amount }} ₽</td>
+                  <td class="status" :style="resolveStatusStyle(invoice.status)">{{ resolveStatusName(invoice.status) }}</td>
+                  <td>{{ formatDate(invoice.created_at) }}</td>
                 </tr>
               </tbody>
             </table>

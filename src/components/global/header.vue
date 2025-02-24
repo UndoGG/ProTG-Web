@@ -5,16 +5,34 @@ import '@/styles/global/header/max.css';
 import '@/styles/general.css';
 import {openLink} from "@/scripts/links.js";
 import HeaderMobile from "@/components/global/header-mobile.vue";
+import {loadAuthCookies} from "@/scripts/auth.js";
+import {request} from "@/scripts/requests.js";
+import {deleteCookie, readCookie, setCookie} from "@/scripts/cookie.js";
 
 export default {
   name: 'Header',
   data() {
-    return {};
+    return {
+      auth: null,
+      isAuthenticated: false
+    };
   },
   components: {
     HeaderMobile
   },
   computed: {
+    info() {
+      let lastUsername = readCookie('username')
+      if (this.$store.state.userInfo == null) {
+        return {'username': lastUsername}
+      }
+
+      if (this.$store.state.userInfo.username !== lastUsername) {
+        setCookie('username', this.$store.state.userInfo.username)
+      }
+
+      return this.$store.state.userInfo
+    }
   },
   methods: {
     redirect(link) {
@@ -23,6 +41,22 @@ export default {
     show() {
       let headerElement = document.getElementById('header-mobile')
       headerElement.style.display = 'block'
+    }
+  },
+  async mounted() {
+    this.auth = await loadAuthCookies()
+    if (this.auth == null) {
+      return
+    }
+    else {
+      this.isAuthenticated = true;
+    }
+
+    let userInfo = await request('auth/me', 'get', this.auth)
+    if (userInfo.response != null) {
+      deleteCookie('auth')
+      this.isAuthenticated = false;
+      return
     }
   }
 };
@@ -42,8 +76,14 @@ export default {
         <div class="heading">
           <div class="heading-text" @click="redirect('/faq')">Как пользоваться сервисом</div>
         </div>
+        <div class="heading" v-if="info.is_superuser">
+          <div class="link" @click="open('/admin')" style="color: #dd5555;">Администрирование</div>
+        </div>
       </div>
-      <div class="auth-container">
+      <div v-if="this.isAuthenticated" class="auth-container">
+        <div class="button" @click="redirect('panel')">Личный кабинет</div>
+      </div>
+      <div v-else class="auth-container">
         <div class="button" @click="redirect('login')">Войти</div>
         <div class="button-reverse" @click="redirect('registration')">Регистрация</div>
       </div>

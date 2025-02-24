@@ -10,8 +10,12 @@ import PCSideMenu from "@/components/panel/PCSideMenu.vue";
 import MobileSideMenu from "@/components/panel/MobileSideMenu.vue";
 import CheckAuth from "@/components/panel/CheckAuth.vue";
 import {loadAuthCookies} from "@/scripts/auth.js";
-import {highlightBorder, resolveStatusName, resolveStatusStyle} from "@/scripts/misc.js";
+import {resolveStatusName, resolveStatusStyle} from "@/scripts/resolver.js";
+import {highlightBorder} from "@/scripts/misc.js";
 import {request, validateResponse} from "@/scripts/requests.js";
+import TaskList from "@/components/panel/TaskList.vue";
+import {getResult} from "@/scripts/helper.js";
+
 
 export default {
   data() {
@@ -24,7 +28,8 @@ export default {
     Footer,
     PanelHeader,
     PCSideMenu,
-    MobileSideMenu
+    MobileSideMenu,
+    TaskList
   },
   computed: {},
   methods: {
@@ -65,41 +70,24 @@ export default {
         )
       })
 
-      console.log(targets)
-
       let data = {
-        targets: targets
+        targets: targets,
+        params: []
       }
 
-      console.log(data)
 
+      let errors = {
+        429: 'Превышен лимит задач. Попробуйте позже!'
+      }
       let createTaskResponse = await request('tasks/create', 'post', this.auth, data)
-      let success = validateResponse(createTaskResponse, errorEl)
+      let success = validateResponse(createTaskResponse, errorEl, errors)
       if (success) {
         location.reload()
       }
-      console.log(success)
     },
 
     getResult(text) {
-      // Создаем новый Blob объект с указанным текстом и MIME-типом
-      const blob = new Blob([text], { type: 'text/plain' });
-
-      // Создаем ссылку для объекта Blob
-      const url = URL.createObjectURL(blob);
-
-      // Создаем ссылку для скачивания файла
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'result.txt';
-
-      // Добавляем ссылку на страницу и эмулируем клик для скачивания файла
-      document.body.appendChild(link);
-      link.click();
-
-      // Очищаем ссылку и объект Blob после завершения скачивания
-      URL.revokeObjectURL(url);
-      document.body.removeChild(link);
+      return getResult(text)
     },
     handleFileSelect(event) {
       const file = event.target.files[0];
@@ -120,11 +108,8 @@ export default {
   },
   async mounted() {
     this.auth = await loadAuthCookies()
-    await this.getTasks()
     const fileInput = document.getElementById('fileInput');
     fileInput.addEventListener('change', this.handleFileSelect);
-    await this.getTasks()
-    setInterval(this.getTasks, 5000);
   }
 };
 </script>
@@ -140,28 +125,30 @@ export default {
       <div class="pool">
         <div id="pool-title">Рассылка</div>
         <div class="content">
-          <div class="pool-block">
-            <div id="pool-block-title">Разослать сообщения</div>
-            <div class="fields-container">
-              <div class="field-container">
-                <div id="field-title">Текст рассылки</div>
-                <textarea
-                    id="text"
-                    class="medium-paragraph"
-                    placeholder="Введите текст"></textarea>
+          <div class="left-container">
+            <div class="pool-block">
+              <div id="pool-block-title">Разослать сообщения</div>
+              <div class="fields-container">
+                <div class="field-container">
+                  <div id="field-title">Текст рассылки</div>
+                  <textarea
+                      id="text"
+                      class="medium-paragraph"
+                      placeholder="Введите текст"></textarea>
+                </div>
+                <div class="field-container">
+                  <div id="field-title">Получатели</div>
+                  <textarea class="paragraph"
+                            id="recipients"
+                            placeholder="Введите список юзернеймов или номеров, каждый с новой строки"></textarea>
+                </div>
               </div>
-              <div class="field-container">
-                <div id="field-title">Получатели</div>
-                <textarea class="paragraph"
-                          id="recipients"
-                          placeholder="Введите список юзернеймов или номеров, каждый с новой строки"></textarea>
-              </div>
-            </div>
 
-            <div class="send-button" @click="postCollect">Запустить</div>
-            <div class="error" id="error"></div>
+              <div class="error" id="error"></div>
+              <div class="send-button" @click="postCollect">Запустить</div>
+            </div>
           </div>
-          <div class="right-container" style="display: flex; flex-direction: column; gap: 30px;">
+          <div class="right-container">
             <div class="pool-block">
               <div id="pool-block-title">Импорт файлов</div>
               <div id="pool-block-subtitle">Импортируйте текст из файла</div>
@@ -171,39 +158,8 @@ export default {
               </div>
             </div>
 
-            <div class="pool-block">
-                <div id="pool-block-title">Список задач</div>
-                <div class="task-list">
-                  <table class="tasks-table">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Статус</th>
-                        <th>Результат</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-if='this.tasks.length > 0' v-for="task in tasks" :key="task.id">
-                        <td>
-                          <div class="id">
-                            {{ task.id }}
-                          </div>
-                        </td>
-                        <td>
-                          <div :style="resolveStatusStyle(task.status)" class="status">
-                            {{ resolveStatusName(task.status) }}
-                          </div>
-                        </td>
-                        <td v-if="task.result != null">
-                          <div class="status result" @click="getResult(task.result)">
-                            Скачать
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+
+          <TaskList></TaskList>
 
           </div>
         </div>

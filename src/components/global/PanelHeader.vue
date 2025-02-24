@@ -3,15 +3,21 @@
 import '@/styles/global/PanelHeader/max.css';
 import '@/styles/global/PanelHeader/mobile.css';
 import '@/styles/general.css';
+import "@/styles/global/header/admin.css"
 import {openLink} from "@/scripts/links.js";
 import PanelHeaderMobile from "@/components/global/PanelHeaderMobile.vue";
 import {deleteCookie, readCookie, setCookie} from "@/scripts/cookie.js";
+import {loadAuthCookies} from "@/scripts/auth.js";
+import {request} from "@/scripts/requests.js";
 
 
 export default {
   name: 'PanelHeader',
   data() {
-    return {};
+    return {
+      isSuperuser: false,
+      auth: null
+    };
   },
   computed: {
     info() {
@@ -25,6 +31,15 @@ export default {
       }
 
       return this.$store.state.userInfo
+    },
+    checkAdminPath() {
+      let path = location.pathname
+      if (path.includes('admin')) {
+        return false
+      }
+      else {
+        return true
+      }
     }
   },
   components: {PanelHeaderMobile},
@@ -40,7 +55,8 @@ export default {
       let headerElement = document.getElementById('header-mobile')
       headerElement.style.display = 'block'
     }
-  }
+  },
+  async mounted() {}
 };
 </script>
 
@@ -51,8 +67,10 @@ export default {
         <img alt="logo" @click="open('/')" src="/assets/icons/logo.png">
     </div>
     <div class="info-section">
-      <div class="link" @click="open('/prices')">Цены</div>
-      <div class="link" @click="open('/faq')">Как пользоваться сервисом</div>
+      <div class="link" v-if="checkAdminPath" @click="open('/prices')">Цены</div>
+      <div class="link" v-if="checkAdminPath" @click="open('/faq')">Как пользоваться сервисом</div>
+      <div class="link" v-if="info.is_superuser&&checkAdminPath" @click="open('/admin')" style="color: #dd5555;">Администрирование</div>
+      <div class="link back-to-panel" v-if="info.is_superuser&&!checkAdminPath" @click="open('/panel')">В панель</div>
     </div>
     <div class="user-section">
       <div class="user">

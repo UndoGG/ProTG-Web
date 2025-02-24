@@ -13,6 +13,10 @@ import Partnership from "@/components/panel/Partnership.vue";
 import Guidance from "@/components/panel/Guidance.vue";
 import Dispatch from "@/components/panel/Dispatch.vue";
 import Prices from "@/components/Prices.vue";
+import Users from "@/components/admin/panel/Users.vue";
+import Balance from "@/components/admin/panel/Balance.vue";
+import SystemPrices from "@/components/admin/panel/SystemPrices.vue";
+import Limits from "@/components/admin/panel/Limits.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -30,6 +34,10 @@ const router = createRouter({
     { path: '/panel/partnership', component: Partnership },
     { path: '/panel/guidance', component: Guidance },
     { path: '/panel/dispatch', component: Dispatch },
+    { path: '/admin', component: Users },
+    { path: '/admin/balance', component: Balance },
+    { path: '/admin/prices', component: SystemPrices },
+    { path: '/admin/limits', component: Limits },
   ],
 });
 

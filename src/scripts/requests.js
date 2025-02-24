@@ -56,6 +56,9 @@ export async function request(endpoint_or_full_url, method=null, auth=null, data
 }
 
 export function validateResponse(response, error_element=null, errors=null) {
+    if (errors == null) {
+        errors = {}
+    }
     if (response.response != null) {
         if (response.response.status === 401) {
               openLink('/login', false);
@@ -67,7 +70,7 @@ export function validateResponse(response, error_element=null, errors=null) {
             else {
                 error_element.textContent = errors[response.response.status]
             }
-            error_element.display = 'block'
+            error_element.style.display = 'block'
         }
         return false
     }

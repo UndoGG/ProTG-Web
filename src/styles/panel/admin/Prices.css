@@ -1,0 +1,133 @@
+.admin-prices #prices-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+
+    margin-bottom: 25px;
+}
+
+.admin-prices #username-container #input-container {
+    width: fit-content;
+    margin: auto;
+}
+
+#input-container .title {
+    font-size: 1.5em;
+}
+
+#input-container input {
+    margin-top: 10px;
+    width: fit-content !important;
+    text-align: left !important;
+}
+
+#prices-container .price-block {
+    border-style: solid;
+    border-color: transparent;
+    background: #0d1117;
+    border-radius: 25px;
+    width: 200px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#prices-container .price-block .title {
+    font-size: 1.6em;
+    user-select: none;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#prices-container .price-block .value {
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.value .currency {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
+    user-select: none;
+}
+
+.admin-prices input {
+    border-radius: 3px;
+    transition: border-color 0.5s;
+    border-width: 1px;
+    color: white;
+    text-align: center;
+    width: 50px;
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 30px;
+    background-color: transparent;
+    font-family: Inter, sans-serif;
+    border-style: solid;
+    border-color: gray;
+    outline: none;
+    font-size: 16px;
+    resize: none;
+}
+
+.admin-prices input::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+    background-color: transparent;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 10px;
+}
+
+.admin-prices input::-webkit-outer-spin-button,
+#prices-container .price-block .value input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.admin-prices input::-webkit-scrollbar-thumb {
+    border-color: transparent;
+    display: none;
+    border-radius: 10px;
+    background-color: #cccaca;
+}
+
+
+.admin-prices input {
+    padding-top: 0 !important;
+}
+
+
+
+.admin-prices input:focus {
+    border-color: white;
+}
+
+.prices-list td #price {
+    user-select: none;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    border-style: solid;
+    border-color: transparent;
+    width: fit-content;
+    margin: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    background-color: #3466ff;
+    font-weight: bold;
+    font-size: 1.1em;
+}

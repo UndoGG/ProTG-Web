@@ -1,0 +1,17 @@
+.limits .price-block .title {
+    font-size: 1.5em !important;
+}
+
+.limits .price-block .description {
+    text-align: center;
+    margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.1em;
+    max-width: 90%;
+    color: #989797;
+}
+
+.limits .price-block {
+    max-width: 25% !important;
+}

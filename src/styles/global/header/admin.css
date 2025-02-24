@@ -1,0 +1,11 @@
+.back-to-panel {
+    border-style: solid;
+    border-color: transparent;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 5px;
+    background-color: #118290;
+    color: white !important;
+}
